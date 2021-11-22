@@ -17,7 +17,9 @@ export const getRepoList: Function = async (
       { params: { order, page, per_page: 10 } }
     );
     const { data, status } = res;
+
     if (status === 200) {
+   
       let repos = data.items.map((elem: Record<string, string>) => {
         const { name, description, language, git_url, id } = elem;
         const storeArray: StringArray = StorageService.getItem("starredRepos");

@@ -31,7 +31,6 @@ const Content: React.FC = () => {
   const [order, setOrder] = useState("desc");
 
   useEffect(() => {
-    
     getRepoList(0, order, select).then((res: InitialStateType) =>
       dispatch({ type: actionType.SET_REPO_DATA, payload: res })
     );
@@ -45,6 +44,7 @@ const Content: React.FC = () => {
       tempRes.repos = [...repos, ...res.repos];
       dispatch({ type: actionType.SET_REPO_DATA, payload: tempRes });
     });
+
     setPage(newPage);
   };
 
@@ -62,12 +62,15 @@ const Content: React.FC = () => {
       {repos && repos.length > 0 && (
         <RepoList>
           {repos.map((repo) => (
-            <Item key={repo.id} {...repo} />
+            <Item key={repo.id} {...repo} dispatch={dispatch} />
           ))}
         </RepoList>
       )}
       {total_count > page + 1 * 10 && (
-        <LoadMoreButton onClick={() => loadMoreClickHandler(page + 1)}>
+        <LoadMoreButton
+          data-testid="content-loadmore"
+          onClick={() => loadMoreClickHandler(page + 1)}
+        >
           Load More
         </LoadMoreButton>
       )}

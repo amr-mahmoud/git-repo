@@ -3,7 +3,7 @@ import {
   OrderToggleWrapper,
   OrderToggleLabel,
 } from "./OrderToggle.style";
-import { OrderToggleProps } from "./OrderToggle";
+import { OrderToggleProps } from "./Order";
 import upwardArr from "../../assets/images/up-arrow.png";
 import bottomArr from "../../assets/images/down-arrow.png";
 

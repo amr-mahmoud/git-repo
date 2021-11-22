@@ -5,4 +5,5 @@ export interface ItemProps {
   url: string;
   description?: string;
   starred: boolean;
+  dispatch: function;
 }

@@ -1,5 +1,3 @@
-import  { useContext } from "react";
-import { AppContext } from "../../provider";
 import StorageService from "../../services/StorageService";
 import { actionType } from "../../reducer/actions";
 import { ItemProps } from "./Item";
@@ -19,12 +17,11 @@ interface StringArray {
   [index: string]: string;
 }
 const Item = (props: ItemProps) => {
-  const { name, description, url, language, starred, id } = props;
-  const { dispatch } = useContext(AppContext);
+  const { name, description, url, language, starred, id, dispatch } = props;
 
   const starOnClick = () => {
     const storeArray: StringArray =
-    StorageService.getItem("starredRepos") || {};
+      StorageService.getItem("starredRepos") || {};
     storeArray[id] = id;
     StorageService.setItem("starredRepos", storeArray);
     dispatch({ type: actionType.REFRESH_STAR_VISIBILITY, payload: { id } });
@@ -40,14 +37,22 @@ const Item = (props: ItemProps) => {
   };
 
   return (
-    <ItemContent>
+    <ItemContent data-testid="article-item">
       <ItemTitleWrapper>
         <ItemTitle>{name}</ItemTitle>
-        
-        <ItemStarImage
-          onClick={starred ? () => destarOnClick() : () => starOnClick()}
-          src={starred ? star : nostar}
-        />
+        {starred ? (
+          <ItemStarImage
+            data-testid="star-img"
+            onClick={() => destarOnClick()}
+            src={star}
+          />
+        ) : (
+          <ItemStarImage
+            data-testid="nostar-img"
+            onClick={() => starOnClick()}
+            src={nostar}
+          />
+        )}
       </ItemTitleWrapper>
       <FieldWrapper>
         <FieldLabel>Git Url: </FieldLabel>
