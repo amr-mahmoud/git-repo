@@ -21,9 +21,9 @@ const Select = (props: SelectProps) => {
 
   return (
     <Wrapper>
-      <SelectTitle>{title}</SelectTitle>
+      <SelectTitle role="select-title">{title}</SelectTitle>
       <SelectContainer>
-        <SelectHeader onClick={() => setVisible(!visible)}>
+        <SelectHeader role="select-header" onClick={() => setVisible(!visible)}>
           {select}
         </SelectHeader>
         {visible && (
@@ -31,6 +31,7 @@ const Select = (props: SelectProps) => {
             <SelectList>
               {languageList.map((item) => (
                 <SelectItem
+                  role="select-item"
                   key={item}
                   onClick={() => onSelectItemClickHandler(item)}
                 >

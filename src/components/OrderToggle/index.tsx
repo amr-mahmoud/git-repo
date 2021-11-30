@@ -14,9 +14,17 @@ const OrderToggle = (props: OrderToggleProps) => {
     <OrderToggleWrapper>
       <OrderToggleLabel>Order :</OrderToggleLabel>
       {order === "desc" ? (
-        <OrderToggleImage src={bottomArr} onClick={() => setOrder("asc")} />
+        <OrderToggleImage
+          role="toggle-button"
+          src={bottomArr}
+          onClick={() => setOrder("asc")}
+        />
       ) : (
-        <OrderToggleImage src={upwardArr} onClick={() => setOrder("desc")} />
+        <OrderToggleImage
+          role="toggle-button"
+          src={upwardArr}
+          onClick={() => setOrder("desc")}
+        />
       )}
     </OrderToggleWrapper>
   );

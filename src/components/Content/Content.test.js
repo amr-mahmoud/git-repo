@@ -4,6 +4,114 @@ import { AppContext } from "../../provider";
 import { render, act, fireEvent } from "@testing-library/react";
 import { actionType } from "../../reducer/actions";
 import * as actions from "../../actions";
+import { mocked } from "ts-jest/utils";
+
+const repos2 = [
+  {
+    id: "1",
+    name: "namme1",
+    language: "Python",
+    url: "ww.giturl",
+    description: "description",
+    starred: false,
+  },
+  {
+    id: "2",
+    name: "namme2",
+    language: "js",
+    url: "ww.giturl2",
+    description: "description2",
+    starred: false,
+  },
+  {
+    id: "3",
+    name: "namme1",
+    language: "Python",
+    url: "ww.giturl",
+    description: "description",
+    starred: false,
+  },
+  {
+    id: "4",
+    name: "namme2",
+    language: "js",
+    url: "ww.giturl2",
+    description: "description2",
+    starred: false,
+  },
+  {
+    id: "5",
+    name: "namme1",
+    language: "Python",
+    url: "ww.giturl",
+    description: "description",
+    starred: false,
+  },
+  {
+    id: "6",
+    name: "namme2",
+    language: "js",
+    url: "ww.giturl2",
+    description: "description2",
+    starred: false,
+  },
+  {
+    id: "7",
+    name: "namme1",
+    language: "Python",
+    url: "ww.giturl",
+    description: "description",
+    starred: false,
+  },
+  {
+    id: "8",
+    name: "namme2",
+    language: "js",
+    url: "ww.giturl2",
+    description: "description2",
+    starred: false,
+  },
+  {
+    id: "9",
+    name: "namme1",
+    language: "Python",
+    url: "ww.giturl",
+    description: "description",
+    starred: false,
+  },
+  {
+    id: "10",
+    name: "namme2",
+    language: "js",
+    url: "ww.giturl2",
+    description: "description2",
+    starred: false,
+  },
+  {
+    id: "11",
+    name: "namme1",
+    language: "Python",
+    url: "ww.giturl",
+    description: "description",
+    starred: false,
+  },
+  {
+    id: "12",
+    name: "namme2",
+    language: "js",
+    url: "ww.giturl2",
+    description: "description2",
+    starred: false,
+  },
+  {
+    id: "13",
+    name: "namme1",
+    language: "Python",
+    url: "ww.giturl",
+    description: "description",
+    starred: false,
+  },
+];
 
 const repos = [
   {
@@ -24,13 +132,8 @@ const repos = [
   },
 ];
 
-
 jest.mock("../../actions", () => ({
-  getRepoList: async () =>
-    Promise.resolve({
-      repos,
-      total_count: 2,
-    }),
+  getRepoList: jest.fn(),
 }));
 
 afterEach(() => {
@@ -46,7 +149,10 @@ it("Content -- expect rendering calling of data return on render to be correct",
   };
   let component;
 
-  console.log("elem", actions.getRepoList);
+  mocked(actions.getRepoList).mockResolvedValue({
+    repos,
+    total_count: 2,
+  });
   // mocking
   await act(async () => {
     component = render(
@@ -82,6 +188,10 @@ it("Content -- expect rendering calling of data return on render to be correct",
   };
   let component;
 
+  mocked(actions.getRepoList).mockResolvedValue({
+    repos,
+    total_count: 2,
+  });
   // mocking
   await act(async () => {
     component = render(
@@ -107,153 +217,111 @@ it("Content -- expect rendering calling of data return on render to be correct",
   expect(getByText(repos[1].name)).toBeTruthy();
 });
 
-const repos2 = [
-    {
-      id: "1",
-      name: "namme1",
-      language: "Python",
-      url: "ww.giturl",
-      description: "description",
-      starred: false,
-    },
-    {
-      id: "2",
-      name: "namme2",
-      language: "js",
-      url: "ww.giturl2",
-      description: "description2",
-      starred: false,
-    },
-    {
-      id: "3",
-      name: "namme1",
-      language: "Python",
-      url: "ww.giturl",
-      description: "description",
-      starred: false,
-    },
-    {
-      id: "4",
-      name: "namme2",
-      language: "js",
-      url: "ww.giturl2",
-      description: "description2",
-      starred: false,
-    },
-    {
-      id: "5",
-      name: "namme1",
-      language: "Python",
-      url: "ww.giturl",
-      description: "description",
-      starred: false,
-    },
-    {
-      id: "6",
-      name: "namme2",
-      language: "js",
-      url: "ww.giturl2",
-      description: "description2",
-      starred: false,
-    },
-    {
-      id: "7",
-      name: "namme1",
-      language: "Python",
-      url: "ww.giturl",
-      description: "description",
-      starred: false,
-    },
-    {
-      id: "8",
-      name: "namme2",
-      language: "js",
-      url: "ww.giturl2",
-      description: "description2",
-      starred: false,
-    },
-    {
-      id: "9",
-      name: "namme1",
-      language: "Python",
-      url: "ww.giturl",
-      description: "description",
-      starred: false,
-    },
-    {
-      id: "10",
-      name: "namme2",
-      language: "js",
-      url: "ww.giturl2",
-      description: "description2",
-      starred: false,
-    },
-    {
-      id: "11",
-      name: "namme1",
-      language: "Python",
-      url: "ww.giturl",
-      description: "description",
-      starred: false,
-    },
-    {
-      id: "12",
-      name: "namme2",
-      language: "js",
-      url: "ww.giturl2",
-      description: "description2",
-      starred: false,
-    },
-    {
-      id: "13",
-      name: "namme1",
-      language: "Python",
-      url: "ww.giturl",
-      description: "description",
-      starred: false,
-    },
-  ];
-describe("second suite", () => {
-  beforeEach(() => {
-    actions.getRepoList = jest.fn((val) => Promise.resolve({ data: {} }));
+it("Content -- expect pagination to work perfectly OnClick", async () => {
+  const dispatch = jest.fn();
+  mocked(actions.getRepoList).mockResolvedValue({
+    repos: repos2,
+    total_count: 22,
   });
-  it("Content -- expect pagination to work perfectly OnClick", async () => {
-    const dispatch = jest.fn();
+  React.useContext = () => {
+    dispatch;
+  };
 
-    React.useContext = () => {
-      dispatch;
-    };
-    let component;
+  let component;
 
-    // mocking
-    await act(async () => {
-      component = render(
-        <AppContext.Provider
-          value={{
-            dispatch,
-            state: { repos: repos2, total_count: 1200 },
-          }}
-        >
-          <Content />
-        </AppContext.Provider>
-      );
-    });
-    const { getByText, queryByTestId, queryAllByTestId } = component;
-
-    const elem = queryByTestId("content-loadmore");
-
-    console.log("elem", actions.getRepoList);
-    console.log("elem", actions);
-
-    fireEvent(
-      elem,
-      new MouseEvent("click", {
-        bubbles: true,
-        cancelable: true,
-      })
+  // mocking
+  await act(async () => {
+    component = render(
+      <AppContext.Provider
+        value={{
+          dispatch,
+          state: { repos: repos2, total_count: 1200 },
+        }}
+      >
+        <Content />
+      </AppContext.Provider>
     );
-
-    expect(actions.getRepoList).toHaveBeenCalled();
-    //expect same number of elements as input
   });
+  const { queryByTestId } = component;
+
+  const elem = queryByTestId("content-loadmore");
+
+  expect(actions.getRepoList).toHaveBeenCalled();
+  expect(actions.getRepoList).toHaveBeenCalledWith(0, "desc", "Any");
+
+  fireEvent(
+    elem,
+    new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+
+  // make sure correct page increment and data input
+  expect(actions.getRepoList).toHaveBeenCalled();
+  expect(actions.getRepoList).toHaveBeenCalledWith(1, "desc", "Any");
+  expect(dispatch).toHaveBeenCalled();
+
+  //expect same number of elements as input
+});
+
+it("Content -- expect on order toggle to work perfectly OnClick", async () => {
+  const dispatch = jest.fn();
+  mocked(actions.getRepoList).mockResolvedValue({
+    repos: repos2,
+    total_count: 22,
+  });
+  React.useContext = () => {
+    dispatch;
+  };
+
+  let component;
+
+  // mocking
+  await act(async () => {
+    component = render(
+      <AppContext.Provider
+        value={{
+          dispatch,
+          state: { repos: repos2, total_count: 1200 },
+        }}
+      >
+        <Content />
+      </AppContext.Provider>
+    );
+  });
+  const { getByText, queryByTestId, queryAllByTestId, queryByRole } = component;
+
+  let elem = queryByRole("toggle-button");
+
+  expect(actions.getRepoList).toHaveBeenCalled();
+  expect(actions.getRepoList).toHaveBeenCalledWith(0, "desc", "Any");
+
+  fireEvent(
+    elem,
+    new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+
+  // expect call for new data is made with asc attribute
+  expect(actions.getRepoList).toHaveBeenCalled();
+  expect(actions.getRepoList).toHaveBeenCalledWith(0, "asc", "Any");
+  expect(dispatch).toHaveBeenCalled();
+
+  // expect another click to toggle back to desc
+   elem = queryByRole("toggle-button");
+
+  fireEvent(
+    elem,
+    new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+
+  expect(actions.getRepoList).toHaveBeenCalled();
+  expect(actions.getRepoList).toHaveBeenCalledWith(0, "desc", "Any");
+  //sexpect same number of elements as input
 });
