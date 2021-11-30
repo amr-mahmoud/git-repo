@@ -27,9 +27,8 @@ const Content: React.FC = () => {
       .then((res: InitialStateType) =>
         dispatch({ type: actionType.SET_REPO_DATA, payload: res })
       )
-      .catch((e: string) => {
-        console.log("eeeee", e);
-        setError(e);
+      .catch((e: Error) => {
+        setError(e.message);
       });
   }, [dispatch, select, order]);
 
@@ -53,7 +52,6 @@ const Content: React.FC = () => {
     setPage(newPage);
   };
 
-  console.log("errrr", error);
   return (
     <ContentWrapper>
       <OptionsWrapper>
