@@ -30,3 +30,9 @@ export const LoadMoreButton = styled.button`
   font-size: 12px;
   cursor: pointer;
 `;
+
+export const ErrorMessageLabel = styled.label`
+  margin: auto;
+  color: red;
+  font-weight: 700;
+`;

@@ -4,6 +4,7 @@ import {
   RepoList,
   OptionsWrapper,
   LoadMoreButton,
+  ErrorMessageLabel,
 } from "./Content.style";
 import { getRepoList } from "../../actions";
 import { AppContext } from "../../provider";
@@ -12,29 +13,33 @@ import { InitialStateType } from "../../provider/initState";
 import Item from "../Item";
 import Select from "../Select";
 import OrderToggle from "../OrderToggle";
-
-const languageList = [
-  "Any",
-  "Python",
-  "C#",
-  "JavaScript",
-  "C",
-  "HTML",
-  "PHP",
-  "C++",
-];
+import { languageList } from "../../constants";
 
 const Content: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const [select, setSelect] = useState(languageList[0]);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("desc");
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    getRepoList(0, order, select).then((res: InitialStateType) =>
-      dispatch({ type: actionType.SET_REPO_DATA, payload: res })
-    );
+    getRepoList(0, order, select)
+      .then((res: InitialStateType) =>
+        dispatch({ type: actionType.SET_REPO_DATA, payload: res })
+      )
+      .catch((e: string) => {
+        console.log("eeeee", e);
+        setError(e);
+      });
   }, [dispatch, select, order]);
+
+  useEffect(() => {
+    if (error.length > 0) {
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+    }
+  }, [error]);
 
   const { repos, total_count } = state || {};
 
@@ -48,6 +53,7 @@ const Content: React.FC = () => {
     setPage(newPage);
   };
 
+  console.log("errrr", error);
   return (
     <ContentWrapper>
       <OptionsWrapper>
@@ -59,6 +65,9 @@ const Content: React.FC = () => {
         />
         <OrderToggle order={order} setOrder={setOrder} />
       </OptionsWrapper>
+      {error.length > 0 && (
+        <ErrorMessageLabel role="error-message">{error}</ErrorMessageLabel>
+      )}
       {repos && repos.length > 0 && (
         <RepoList>
           {repos.map((repo) => (

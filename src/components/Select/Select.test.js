@@ -46,7 +46,7 @@ it("Select UI -- display of select and selecting item to be working  ", async ()
   };
   let component = render(<Select {...mockProps} />);
 
-  const { queryByRole, queryAllByRole, queryByText } = component;
+  const { queryByRole, queryAllByRole } = component;
 
   //expect header to be equal selected value
   const header = queryByRole("select-header");
