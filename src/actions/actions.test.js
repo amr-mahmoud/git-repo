@@ -58,3 +58,16 @@ it("getRepoList should output correct format", async () => {
     total_count: 2,
   });
 });
+
+it("getRepoList should output correct format", async () => {
+  axios.get = jest.fn().mockImplementationOnce(() =>
+    Promise.reject({
+      status: 403,
+      data: {},
+    })
+  );
+
+  await expect(actions.getRepoList(0, "", "desc", "any")).rejects.toThrowError(
+    "Too Many requests please wait"
+  );
+});
