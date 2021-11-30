@@ -59,7 +59,7 @@ it("getRepoList should output correct format", async () => {
   });
 });
 
-it("getRepoList should output correct format", async () => {
+it("getRepoList - to throw on reject", async () => {
   axios.get = jest.fn().mockImplementationOnce(() =>
     Promise.reject({
       status: 403,

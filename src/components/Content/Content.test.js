@@ -328,7 +328,7 @@ it("Content -- expect on order toggle to work perfectly OnClick", async () => {
   //sexpect same number of elements as input
 });
 
-it("Content -- expect on order toggle to work perfectly OnClick", async () => {
+it("Content -- expect error handling to work perfectly", async () => {
   let errMsg = "Too Many requests please wait";
   const dispatch = jest.fn();
   mocked(actions.getRepoList).mockRejectedValue(new Error(errMsg));
