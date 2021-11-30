@@ -31,14 +31,12 @@ export const FieldLabel = styled.label`
   margin-right: 5px;
 `;
 
-export const FieldText = styled.label`
+export const FieldText = styled.label``;
+
+export const FieldWrapper = styled.div`
+  margin: 10px 0 0 0;
+  flex-direction: row;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`;
-
-export const FieldWrapper = styled.div`
-    margin: 10px 0 0 0
-  display: flex;
-  flex-direction: row;
 `;

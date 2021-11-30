@@ -311,7 +311,7 @@ it("Content -- expect on order toggle to work perfectly OnClick", async () => {
   expect(dispatch).toHaveBeenCalled();
 
   // expect another click to toggle back to desc
-   elem = queryByRole("toggle-button");
+  elem = queryByRole("toggle-button");
 
   fireEvent(
     elem,
