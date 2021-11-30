@@ -38,5 +38,5 @@ export const getRepoList: Function = async (
     });
     return { total_count: data.total_count, repos };
   }
-  throw "Too Many requests please wait";
+  throw Error("Too Many requests please wait");
 };
