@@ -1,10 +1,12 @@
 import React from "react";
 import Content from "./index";
 import { AppContext } from "../../provider";
-import { render, act, fireEvent } from "@testing-library/react";
+import { render, act, fireEvent, waitFor } from "@testing-library/react";
 import { actionType } from "../../reducer/actions";
 import * as actions from "../../actions";
 import { mocked } from "ts-jest/utils";
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const repos2 = [
   {
@@ -324,4 +326,39 @@ it("Content -- expect on order toggle to work perfectly OnClick", async () => {
   expect(actions.getRepoList).toHaveBeenCalled();
   expect(actions.getRepoList).toHaveBeenCalledWith(0, "desc", "Any");
   //sexpect same number of elements as input
+});
+
+it("Content -- expect on order toggle to work perfectly OnClick", async () => {
+  let errMsg = "Too Many requests please wait";
+  const dispatch = jest.fn();
+  mocked(actions.getRepoList).mockRejectedValue(new Error(errMsg));
+  React.useContext = () => {
+    dispatch;
+  };
+
+  let component;
+
+  // mocking
+  await act(async () => {
+    component = render(
+      <AppContext.Provider
+        value={{
+          dispatch,
+          state: { repos: repos2, total_count: 1200 },
+        }}
+      >
+        <Content />
+      </AppContext.Provider>
+    );
+  });
+  const { queryByRole } = component;
+
+  let errorElem = queryByRole("error-message");
+
+  await expect(actions.getRepoList).rejects.toThrowError(
+    "Too Many requests please wait"
+  );
+
+  //expect the error element to exist with same error message
+  expect(errorElem).toHaveTextContent(errMsg);
 });
